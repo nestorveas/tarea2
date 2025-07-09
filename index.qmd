@@ -1,0 +1,71 @@
+---
+title: "Tarea2"
+author: "Nestor Veas"
+format: html
+
+---
+
+# Carga de paquetes
+
+```{r}
+#| label: carga-paquetes
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(DT)
+library(scales)
+library(ggthemes)
+library(hrbrthemes)
+library(plotly)
+```
+
+# Carga de datos
+
+```{r}
+#| label: carga-datos
+#| warning: false
+#| message: false
+
+consumo <- read_csv("consumo.csv")
+
+
+```
+
+
+```{r}
+#| label: Creación de columna
+#| warning: false
+#| message: false
+# Creación de columna de Consumo Promedio
+
+consumo$Cons_Prom <- consumo$Consumo / consumo$Usuarios
+  
+```
+
+```{r}
+meses_ano <- c("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
+```
+
+```{r}
+#| label: Gráfico consumo promedio mensual 
+
+consumo |> 
+ggplot(aes(x=factor(Mes, meses_ano), y=Cons_Prom))+
+  geom_point()
+  
+```
+
+
+
+```{r}
+#| label: Gráfico consumo promedio mensual por año
+
+consumo |> 
+ggplot(aes(x=factor(Mes, meses_ano), y=Cons_Prom, color=Año))+
+  geom_point()
+  
+```
+
+
+
